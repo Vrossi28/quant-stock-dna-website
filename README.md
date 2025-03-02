@@ -42,8 +42,7 @@ This will launch the project and make it accessible locally.
 The frontend communicates with a backend service to send emails when users request contact. To configure backend access, define the following environment variables:
 
 - `VITE_API_URL` - Backend API base URL.
-- `VITE_LOGIN` - API authentication username.
-- `VITE_PASSWORD` - API authentication password.
+- `VITE_NEWSLETTER_UP` - API Base64 authentication.
 
 ## Google Analytics Integration
 
