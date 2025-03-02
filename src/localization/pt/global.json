@@ -31,7 +31,7 @@
   "sharpe": "Sharpe",
   "drawdown": "Drawdown",
   "win.rate": "Taxa de Ganhos",
-  "export.robot": "Exportar Robô",
+  "export.robot": "Exportar Estratégia",
   "export.strategy": "Exporte sua Estratégia",
   "transform.strategy": "Transforme sua estratégia em um robô de trading e acompanhe seu desempenho",
   "meta.trader": "MetaTrader",

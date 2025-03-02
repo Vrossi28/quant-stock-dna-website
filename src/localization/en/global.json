@@ -31,7 +31,7 @@
   "sharpe": "Sharpe",
   "drawdown": "Drawdown",
   "win.rate": "Win Rate",
-  "export.robot": "Export Robot",
+  "export.robot": "Export Strategy",
   "export.strategy": "Export your Strategy",
   "transform.strategy": "Turn your strategy into a trading robot and track its performance",
   "meta.trader": "MetaTrader",
