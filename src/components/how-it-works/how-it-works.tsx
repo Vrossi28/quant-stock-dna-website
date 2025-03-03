@@ -1,7 +1,10 @@
 import { useTranslation } from "react-i18next";
 import IconCard, { IconCardProps } from "../ui/icon-card";
+import { trackSectionVisibility } from "@/lib/services/analytics-service";
+import { useEffect } from "react";
 
 const HowItWorks = () => {
+  const sectionId: string = "how-it-works";
   const { t } = useTranslation();
   const featuresList: IconCardProps[] = [
     {
@@ -56,8 +59,16 @@ const HowItWorks = () => {
     },
   ];
 
+  useEffect(() => {
+    const cleanup = trackSectionVisibility(sectionId);
+
+    return () => {
+      if (cleanup) cleanup();
+    };
+  }, []);
+
   return (
-    <section id="how-it-works" className="w-full py-12 md:py-24 lg:py-32">
+    <section id={sectionId} className="w-full py-12 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">

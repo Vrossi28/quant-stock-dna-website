@@ -6,6 +6,8 @@ import {
 } from "lucide-react";
 import IconCard, { IconCardProps } from "../ui/icon-card";
 import { useTranslation } from "react-i18next";
+import { trackSectionVisibility } from "@/lib/services/analytics-service";
+import { useEffect } from "react";
 
 const Features = () => {
   const { t } = useTranslation();
@@ -36,8 +38,17 @@ const Features = () => {
     },
   ];
 
+  const sectionId: string = "features";
+  useEffect(() => {
+    const cleanup = trackSectionVisibility(sectionId);
+
+    return () => {
+      if (cleanup) cleanup();
+    };
+  }, []);
+
   return (
-    <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+    <section id={sectionId} className="w-full py-12 md:py-24 lg:py-32 bg-muted">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
