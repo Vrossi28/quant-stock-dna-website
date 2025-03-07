@@ -26,7 +26,8 @@ interface Preferences {
 
 interface AppSettings {
   apiUrl: string;
-  newsletterUp: string;
+  newsletterUsername: string;
+  newsletterPwd: string;
 }
 
 interface TokenData {

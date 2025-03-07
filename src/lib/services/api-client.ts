@@ -5,7 +5,10 @@ const apiClient = axios.create({
   baseURL: getSettings().apiUrl,
   headers: {
     "Content-Type": "application/json",
-    Authorization: getSettings().newsletterUp,
+  },
+  auth: {
+    username: getSettings().newsletterUsername,
+    password: getSettings().newsletterPwd,
   },
 });
 
