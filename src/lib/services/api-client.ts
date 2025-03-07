@@ -5,7 +5,7 @@ const apiClient = axios.create({
   baseURL: getSettings().apiUrl,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${getSettings().newsletterUp}`,
+    Authorization: `Basic ${getSettings().newsletterUp}`,
   },
 });
 
