@@ -16,7 +16,8 @@ import { PRIMARY_COLOR } from "@/constants/common";
 const Verify = () => {
   const { t } = useTranslation();
   const language = i18n.language;
-  const [preferences, setPreferences] = useState<Preferences>();
+  const [preferences, setPreferences] = useState<Preferences | null>(null);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   async function registerSubscriber(id: string) {
@@ -27,32 +28,40 @@ const Verify = () => {
         activeSubscription: true,
       };
       const response = await updateSubscriberPreferences(prefs);
-      setPreferences(response);
+      return response;
     } catch (err) {
       console.error(err);
+      return null;
     }
   }
 
-  const logoSrc = () => {
-    if (language === "pt") {
-      return blackLogo_pt;
-    } else {
-      return blackLogo_en;
-    }
-  };
+  const logoSrc = () => (language === "pt" ? blackLogo_pt : blackLogo_en);
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const id = queryParams.get("id");
-    if (!id) return;
+    const fetchPreferences = async () => {
+      const queryParams = new URLSearchParams(location.search);
+      const id = queryParams.get("id");
+      if (!id) {
+        setLoading(false);
+        return;
+      }
 
-    try {
-      getPreferences(id).then((preferences) => {
-        setPreferences(preferences);
-        if (preferences && !preferences.activeSubscription)
-          registerSubscriber(id);
-      });
-    } catch {}
+      try {
+        const prefs = await getPreferences(id);
+        if (!prefs || !prefs.activeSubscription) {
+          const updatedPrefs = await registerSubscriber(id);
+          setPreferences(updatedPrefs);
+        } else {
+          setPreferences(prefs);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPreferences();
   }, [location]);
 
   return (
@@ -70,18 +79,18 @@ const Verify = () => {
               className="md:w-[200px] w-[200px] object-contain rounded-lg"
             />
           </a>
-          {preferences == null ? (
+          {loading ? (
             <div className="flex flex-col items-center">
               <span>{t("loading")}</span>
               <MoonLoader size={15} color={PRIMARY_COLOR} />
             </div>
-          ) : (
+          ) : preferences?.activeSubscription ? (
             <div className="flex flex-col items-center text-center justify-center text-2xl text-white font-bold pb-2">
-              {preferences?.activeSubscription ? (
-                <ThankYouWaitlist />
-              ) : (
-                <Contact />
-              )}
+              <ThankYouWaitlist />
+            </div>
+          ) : (
+            <div className="flex flex-col items-center">
+              <Contact />
             </div>
           )}
         </div>
