@@ -1,7 +1,9 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { useTitle } from "@/lib/utils";
+import { useLocation } from "react-router-dom";
+import i18n from "@/localization/i18n";
 
 interface BasePageProps {
   children: ReactNode;
@@ -15,6 +17,21 @@ const BasePage: React.FC<BasePageProps> = ({
   isHome = false,
 }) => {
   useTitle(title);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const lang = searchParams.get("lang");
+
+    if (lang) {
+      if (["en", "pt"].includes(lang)) {
+        i18n.changeLanguage(lang);
+      } else {
+        i18n.changeLanguage("en");
+      }
+    }
+  }, [location.search]);
 
   return (
     <>
