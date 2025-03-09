@@ -54,7 +54,7 @@ const routeList: RouteProps[] = [
   },
   {
     href: "#contact_us",
-    label: "contact.us",
+    label: "waitlist",
     alternativeBackground: true,
     eventName: "navbar_contact_us_click",
   },
