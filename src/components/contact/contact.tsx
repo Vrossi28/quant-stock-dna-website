@@ -52,9 +52,9 @@ const Contact = () => {
 
   const submitContactForm = async () => {
     try {
-      const response = await registerSubscriber(formData);
+      await registerSubscriber(formData);
       setIsSubmitted(true);
-      console.log(response);
+      registerEvent("contact_form_submit");
     } catch (err) {
       var error = err as AxiosError;
       var data = error.response?.data as { message: string };

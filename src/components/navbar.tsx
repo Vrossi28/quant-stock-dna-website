@@ -54,7 +54,7 @@ const routeList: RouteProps[] = [
   },
   {
     href: "#contact_us",
-    label: "waitlist",
+    label: "request.access",
     alternativeBackground: true,
     eventName: "navbar_contact_us_click",
   },
@@ -115,7 +115,7 @@ export const Navbar = ({ isHome = false }: { isHome: boolean | undefined }) => {
                       route.alternativeBackground ? (
                         <Button
                           variant="white"
-                          className="text-primary"
+                          className="text-primary hover:bg-mosaicGreenHover bg-mosaicGreen"
                           size="lg"
                           key={i}
                           onClick={() => handleButtonClick(route)}
@@ -147,7 +147,11 @@ export const Navbar = ({ isHome = false }: { isHome: boolean | undefined }) => {
             {isHome &&
               routeList.map((route: RouteProps, i) =>
                 route.alternativeBackground ? (
-                  <Button key={i} onClick={() => handleButtonClick(route)}>
+                  <Button
+                    key={i}
+                    className="bg-mosaicGreenHover hover:bg-mosaicGreen"
+                    onClick={() => handleButtonClick(route)}
+                  >
                     {t(route.label)}
                   </Button>
                 ) : (
